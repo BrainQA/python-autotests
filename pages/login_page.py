@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -19,27 +18,19 @@ class LoginPage(BasePage):
 
     # Вводим Username
     def enter_username(self, username):
-        username_field = self.wait.until(
-            EC.visibility_of_element_located(self.USERNAME_FIELD)
-        )
-        username_field.send_keys(username)
+        self.type(self.USERNAME_FIELD, username)
 
     # Вводим Password
     def enter_password(self, password):
-        password_field = self.wait.until(
-            EC.visibility_of_element_located(self.PASSWORD_FIELD)
-        )
-        password_field.send_keys(password)
+        self.type(self.PASSWORD_FIELD, password)
 
     # Нажимаем Login
     def click_login(self):
-        login_button = self.wait.until(EC.element_to_be_clickable(self.LOGIN_BUTTON))
-        login_button.click()
+        self.click(self.LOGIN_BUTTON)
 
     # Получаем сообщение
     def get_flash_message(self):
-        message = self.wait.until(EC.visibility_of_element_located(self.FLASH_MESSAGE))
-        return message.text
+        return self.get_text(self.FLASH_MESSAGE)
 
     # Выполняем авторизацию
     def login(self, username, password):
